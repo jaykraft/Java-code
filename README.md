@@ -1,2 +1,2 @@
 # Java-code
-Code snippets for java
+Java based projects that were developed during my studies
