@@ -35,4 +35,20 @@ public class DataManager {
     public double getTotalExpenses() {
         return expenseEntries.stream().mapToDouble(ExpenseEntry::getAmount).sum();
     }
+
+    public void updateIncomeEntry(int index, IncomeEntry entry){
+        incomeEntries.set(index, entry);
+    }
+
+    public void updateExpenseEntry(int index, ExpenseEntry entry){
+        expenseEntries.set(index, entry);
+    }
+
+    public void removeIncomeEntry(int index) {
+        incomeEntries.remove(index);
+    }
+
+    public void removeExpenseEntry(int index) {
+        expenseEntries.remove(index);
+    }
 }

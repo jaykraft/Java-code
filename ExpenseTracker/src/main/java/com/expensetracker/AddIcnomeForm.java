@@ -8,14 +8,16 @@ public class AddIcnomeForm extends JPanel {
     private JTextField txtCategory;
     private JTextField txtDate;
     private JButton btnAdd;
-
     private DataManager dataManager;
 
     public AddIcnomeForm(DataManager dataManager) {
         this.dataManager = dataManager;
 
         //Set layout
-        setLayout(new GridLayout(4, 2));
+        setLayout(new GridLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         //Initialise components
         JLabel lblAmount = new JLabel("Amount:");
@@ -30,14 +32,29 @@ public class AddIcnomeForm extends JPanel {
         btnAdd = new JButton("Add Income");
 
         //Add components to panel
-        add(lblAmount);
-        add(txtAmount);
-        add(lblCategory);
-        add(txtCategory);
-        add(lblDate);
-        add(txtDate);
-        add(new JLabel()); //Empty label for spacing
-        add(btnAdd);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        add(lblAmount, gbc);
+
+        gbc.gridx = 1;
+        add(txtAmount, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        add(lblCategory, gbc);
+
+        gbc.gridx = 1;
+        add(txtCategory, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(lblDate, gbc);
+
+        gbc.gridx = 1;
+        add(txtDate, gbc);
+
+        gbc.gridy = 3;
+        add(btnAdd, gbc);
 
         //Add action listener for button
         btnAdd.addActionListener(e -> addIncome());
@@ -48,6 +65,12 @@ public class AddIcnomeForm extends JPanel {
             double amount = Double.parseDouble(txtAmount.getText());
             String category = txtCategory.getText();
             String date = txtDate.getText();
+
+            //Validate date format
+            if (!date.matches("\\d{4}-\\d{2}-\\d{2}")){
+                JOptionPane.showMessageDialog(this, "Please enter a valid date (YYYY-MM-DD).");
+                return;
+            }
 
             dataManager.addIncomeEntry(new IncomeEntry(amount, category, date));
             JOptionPane.showMessageDialog(this, "Income added successfully");
